@@ -1,8 +1,19 @@
 import requests
 import pprint
-apiKey="73636e21684e64f828ece0848249f09f"
-baseURL = "https://api.the-odds-api.com/v4"
+import os
+import json
+from upstash_redis import Redis
+from dotenv import load_dotenv
 
+load_dotenv()
+
+url = os.getenv('UPSTASH_REDIS_REST_URL')
+pw = os.getenv('UPSTASH_REDIS_PW')
+
+redis = Redis.from_env()
+
+
+baseURL, apiKey = os.getenv("ODDS_URL"), os.getenv("ODDS_API_KEY")
 
 def get_props(event_id):
 
@@ -24,4 +35,20 @@ def payout(amount, odds):
     return round(amount + (amount * factor), 2)
 
 
-print(payout(50, -170))
+def upload_events():
+
+    response = requests.get(
+        f"{baseURL}/sports/basketball_nba/events/?apiKey={apiKey}&regions=us&oddsFormat=american&markets=player_points")
+
+    data = response.json()
+
+    for event in data:
+        redis.rpush("events", event)
+
+    pprint.pprint(data)
+
+
+upload_events()
+
+events = redis.lrange("events", 0, -1)
+print(events)
