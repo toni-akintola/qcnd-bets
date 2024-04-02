@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type Bookmaker {
+  key     String
+  markets Market[]
+  title   String
+}
+
+type Market {
+  key         String
+  last_update String
+  outcomes    Outcome[]
+}
+
+type Outcome {
+  description String
+  name        String
+  point       Float
+  price       Int
+}
+
+model events {
+  id            String             @id @map("_id")
+  away_team     String
+  bookmakers    Bookmaker[]
+  commence_time String
+  home_team     String
+  sport_key     String
+  sport_title   String
+}

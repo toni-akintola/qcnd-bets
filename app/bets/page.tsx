@@ -1,13 +1,10 @@
 import { Game, columns } from "./columns";
 import { DataTable } from "./data-table";
-import { Redis } from "@upstash/redis";
-
-const redis = Redis.fromEnv();
-
-export const revalidate = 0; // disable cache
 
 export default async function Bets() {
-  const data = (await redis.lrange("events", 0, -1)) as Game[];
+  const response = await fetch("http://localhost:3000/api/events/");
+  const data = await response.json();
+
   console.log(data);
 
   return (

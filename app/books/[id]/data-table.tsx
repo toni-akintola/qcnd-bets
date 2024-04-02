@@ -16,6 +16,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -31,6 +33,9 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const { id } = useParams();
+  console.log();
 
   return (
     <div className="rounded-md border">
@@ -65,7 +70,9 @@ export function DataTable<TData, TValue>({
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
-                <Button>Place Bet</Button>
+                <Link href={`${id}/props/${row.getValue("title")}`}>
+                  <Button>Props</Button>
+                </Link>
               </TableRow>
             ))
           ) : (

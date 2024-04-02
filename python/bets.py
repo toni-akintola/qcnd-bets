@@ -4,13 +4,13 @@ import os
 import json
 from upstash_redis import Redis
 from dotenv import load_dotenv
+from mongo import get_database
+
+
+mongodb = get_database()
+events = mongodb["events"]
 
 load_dotenv()
-
-url = os.getenv('UPSTASH_REDIS_REST_URL')
-pw = os.getenv('UPSTASH_REDIS_PW')
-
-redis = Redis.from_env()
 
 
 baseURL, apiKey = os.getenv("ODDS_URL"), os.getenv("ODDS_API_KEY")
@@ -47,10 +47,18 @@ def upload_events():
         props_response = requests.get(
             f"{baseURL}/sports/basketball_nba/events/{id}/odds?apiKey={apiKey}&regions=us&oddsFormat=american&markets=player_points")
 
-        data = props_response.json()
-        pprint.pprint(data)
-        redis.hset("events", data)
+        event = props_response.json()
+        events.insert_one(
+            {"_id": event["id"], "commence_time": event["commence_time"], "home_team":
+                event["home_team"], "away_team": event["away_team"], "sport_key": event["sport_key"], "sport_title": event["sport_title"],
+                "bookmakers": event["bookmakers"]})
 
 
+# id = "0d31988221feb992519b909a81ac259b"
+# props_response = requests.get(
+#     f"{baseURL}/sports/basketball_nba/events/{id}/odds?apiKey={apiKey}&regions=us&oddsFormat=american&markets=player_points")
+# data = props_response.json()
+
+# pprint.pprint(data.keys())
 upload_events()
 

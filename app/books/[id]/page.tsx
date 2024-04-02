@@ -1,13 +1,18 @@
-import { PlayerProp, columns } from "./columns";
+import { db } from "@/lib/db";
+import { columns } from "./columns";
 import { DataTable } from "./data-table";
-import { Redis } from "@upstash/redis";
-
-const redis = Redis.fromEnv();
-
-export const revalidate = 0; // disable cache
 
 export default async function Props({ params }: { params: { id: string } }) {
-  var data = (await redis.lrange("events", 0, -1)) as PlayerProp[];
+  const event = await db.events.findFirst({
+    where: {
+      id: params.id,
+    },
+    select: {
+      bookmakers: true,
+    },
+  });
+
+  const data = event?.bookmakers;
 
   console.log(data);
 
