@@ -1,21 +1,18 @@
 "use client";
 
+import { Bookmaker } from "@/lib/types";
 import { ColumnDef } from "@tanstack/react-table";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Game = {
-  id: string;
-  sport_key: string;
-  commence_time: string;
-  home_team: string;
+export type PlayerProp = {
   away_team: string;
-  price: number;
-  time: string;
-  bookmakers: any;
+  bookmakers: Bookmaker[];
+  commence_time: Date;
+  home_team: string;
 };
 
-export const columns: ColumnDef<Game>[] = [
+export const columns: ColumnDef<PlayerProp>[] = [
   {
     accessorKey: "id",
     header: "ID",

@@ -37,18 +37,20 @@ def payout(amount, odds):
 
 def upload_events():
 
-    response = requests.get(
+    events_response = requests.get(
         f"{baseURL}/sports/basketball_nba/events/?apiKey={apiKey}&regions=us&oddsFormat=american&markets=player_points")
 
-    data = response.json()
+    data = events_response.json()
 
     for event in data:
-        redis.rpush("events", event)
+        id = event["id"]
+        props_response = requests.get(
+            f"{baseURL}/sports/basketball_nba/events/{id}/odds?apiKey={apiKey}&regions=us&oddsFormat=american&markets=player_points")
 
-    pprint.pprint(data)
+        data = props_response.json()
+        pprint.pprint(data)
+        redis.hset("events", data)
 
 
 upload_events()
 
-events = redis.lrange("events", 0, -1)
-print(events)
