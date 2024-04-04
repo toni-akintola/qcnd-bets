@@ -71,7 +71,7 @@ export function DataTable<TData, TValue>({
                   </TableCell>
                 ))}
                 <Link href={`${id}/props/${row.getValue("title")}`}>
-                  <Button>Props</Button>
+                  <Button className="bg-qcnd">Props</Button>
                 </Link>
               </TableRow>
             ))

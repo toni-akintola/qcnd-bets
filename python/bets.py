@@ -54,11 +54,6 @@ def upload_events():
                 "bookmakers": event["bookmakers"]})
 
 
-# id = "0d31988221feb992519b909a81ac259b"
-# props_response = requests.get(
-#     f"{baseURL}/sports/basketball_nba/events/{id}/odds?apiKey={apiKey}&regions=us&oddsFormat=american&markets=player_points")
-# data = props_response.json()
 
-# pprint.pprint(data.keys())
 upload_events()
 

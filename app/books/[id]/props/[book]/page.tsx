@@ -1,11 +1,6 @@
 import { db } from "@/lib/db";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
-import { Redis } from "@upstash/redis";
-
-const redis = Redis.fromEnv();
-
-export const revalidate = 0; // disable cache
 
 export default async function Props({
   params,
@@ -21,11 +16,11 @@ export default async function Props({
   const outcomes = event?.bookmakers
     .filter((bookmaker) => bookmaker.title == params.book)
     .map((bookmaker) => bookmaker.markets[0].outcomes);
-  console.log(outcomes[0]);
+  console.log(outcomes![0]);
 
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={outcomes[0]} />
+      <DataTable columns={columns} data={outcomes![0]} />
     </div>
   );
 }

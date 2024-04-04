@@ -65,7 +65,7 @@ export function DataTable<TData, TValue>({
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
-                <Button>Bet</Button>
+                <Button className="bg-qcnd">Bet</Button>
               </TableRow>
             ))
           ) : (

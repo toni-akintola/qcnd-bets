@@ -12,9 +12,7 @@ export default async function Props({ params }: { params: { id: string } }) {
     },
   });
 
-  const data = event?.bookmakers;
-
-  console.log(data);
+  const data = event!.bookmakers;
 
   return (
     <div className="container mx-auto py-10">
