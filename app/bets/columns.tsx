@@ -1,21 +1,9 @@
 "use client";
 
+import { events } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Game = {
-  id: string;
-  sport_key: string;
-  commence_time: string;
-  home_team: string;
-  away_team: string;
-  price: number;
-  time: string;
-  bookmakers: any;
-};
-
-export const columns: ColumnDef<Game>[] = [
+export const columns: ColumnDef<events>[] = [
   {
     accessorKey: "id",
     header: "ID",
