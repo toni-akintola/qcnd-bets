@@ -15,7 +15,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -65,7 +76,46 @@ export function DataTable<TData, TValue>({
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
-                <Button className="bg-qcnd">Bet</Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="bg-qcnd mt-2">Bet</Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                      <DialogTitle>Place a Bet</DialogTitle>
+                      <DialogDescription>
+                        Enter your bet and expected edge.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="bet" className="text-right">
+                          Bet Size
+                        </Label>
+                        <Input
+                          id="bet"
+                          defaultValue="0"
+                          className="col-span-3"
+                        />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="edge" className="text-right">
+                          Edge
+                        </Label>
+                        <Input
+                          id="edge"
+                          defaultValue="0"
+                          className="col-span-3"
+                        />
+                      </div>
+                    </div>
+                    <DialogFooter>
+                      <Button className="bg-qcnd" type="submit">
+                        Submit Bet
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </TableRow>
             ))
           ) : (

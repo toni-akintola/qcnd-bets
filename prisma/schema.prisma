@@ -35,3 +35,13 @@ model events {
   sport_key     String
   sport_title   String
 }
+
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  team String @unique
+  email String @unique
+  password String
+  hashedPassword String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
