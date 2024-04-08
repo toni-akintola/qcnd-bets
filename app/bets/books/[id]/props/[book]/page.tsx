@@ -12,11 +12,9 @@ export const Props = async ({
       id: params.id,
     },
   });
-  console.log(params);
   const outcomes = event?.bookmakers
     .filter((bookmaker) => bookmaker.title == params.book)
     .map((bookmaker) => bookmaker.markets[0].outcomes);
-  console.log(outcomes![0]);
 
   return (
     <div className="container mx-auto py-10">

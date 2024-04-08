@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function Page() {
   const [data, setData] = useState({
     email: "",
-    teamName: "",
+    team: "",
     password: "",
   });
 
@@ -68,14 +68,12 @@ export default function Page() {
               </label>
               <div className="mt-2">
                 <input
-                  id="teamName"
-                  name="teamName"
+                  id="team"
+                  name="team"
                   type="text"
                   autoComplete="team"
-                  value={data.teamName}
-                  onChange={(e) =>
-                    setData({ ...data, teamName: e.target.value })
-                  }
+                  value={data.team}
+                  onChange={(e) => setData({ ...data, team: e.target.value })}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />

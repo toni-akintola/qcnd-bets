@@ -49,19 +49,21 @@ model User {
 
 model Team {
   id  String    @id @default(auto()) @map("_id") @db.ObjectId 
-  name String
-  bankroll BigInt
+  name String @unique
+  bankroll Int
   bets Bet[]
   user User @relation(fields: [id], references: [id])
 }
 
 model Bet {
   id String @id @default(auto()) @map("_id") @db.ObjectId 
-  size BigInt
+  size Int
   edge String
   over Boolean
   odds Int
   points Float
   player String
-  team Team @relation(fields: [id], references: [id])
+  teamName String
+  createdAt DateTime @default(now())
+  team Team @relation(fields: [teamName], references: [name])
 }

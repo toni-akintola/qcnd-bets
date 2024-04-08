@@ -26,23 +26,30 @@ export const Menu = (props: TeamProps) => {
         <div className="flex flex-row grow">
           <>
             <Link
-              href="/files"
+              href="/bets/teams"
               className="py-4 px-6 cursor-pointer hover:bg-slate-100 font-bold"
             >
-              Files
+              Standings
+            </Link>
+
+            <Link
+              href="/bets"
+              className="py-4 px-6 cursor-pointer hover:bg-slate-100 font-bold"
+            >
+              Events
             </Link>
             <Link
-              href="/chat"
+              href="/bets/market"
               className="py-4 px-6 cursor-pointer hover:bg-slate-100 font-bold"
             >
-              Chat
+              Active Bets
             </Link>
           </>
         </div>
         <div className="flex flex-row">
           <div className="flex items-center gap-4">
-            <p>{props.name}</p>
-            <p>{Number(props.bankroll)}</p>
+            <p className="font-bold">{props.name}</p>
+            <p className="text-qcnd">${Number(props.bankroll)}</p>
             <div className="hidden sm:block">Welcome back!</div>
             <Button
               variant="outline"

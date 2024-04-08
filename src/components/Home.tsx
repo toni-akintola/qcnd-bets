@@ -85,6 +85,10 @@ const Home = (props: HomeProps) => {
         <h2 className="text-2xl font-extrabold">Rules</h2>
         <ol className="text-bold space-y-2 list-decimal">
           <li>One betting account per team.</li>
+          <li className="font-bold">
+            Any bets made after a game has started will be void, and will not be
+            refunded.
+          </li>
           <li>Let us know about any bugs or errors with the system.</li>
           <li>Be patient with us and with the software.</li>
           <li>Have fun!</li>
