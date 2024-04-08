@@ -2,11 +2,11 @@ import { db } from "@/lib/db";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 
-export default async function Props({
+export const Props = async ({
   params,
 }: {
   params: { id: string; book: string };
-}) {
+}) => {
   const event = await db.events.findFirst({
     where: {
       id: params.id,
@@ -23,4 +23,6 @@ export default async function Props({
       <DataTable columns={columns} data={outcomes![0]} />
     </div>
   );
-}
+};
+
+export default Props;

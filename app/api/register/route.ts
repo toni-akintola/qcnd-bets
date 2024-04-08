@@ -1,35 +1,42 @@
-import bcrypt from 'bcrypt'
-import { db } from '@/lib/db';
-import { NextRequest, NextResponse } from 'next/server'
+import bcrypt from "bcrypt";
+import { db } from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest){
-    const body = await request.json();
-    const { email, team, password } = body;
+export async function POST(request: NextRequest) {
+  const body = await request.json();
+  const { email, teamName, password } = body;
 
-    if(!team || !email || !password) {
-        return new NextResponse('Missing Fields', { status: 400 })
-    }
+  if (!teamName || !email || !password) {
+    return new NextResponse("Missing Fields", { status: 400 });
+  }
 
-    const exist = await db.user.findUnique({
-        where: {
-            team
-        }
-    });
+  const exist = await db.user.findUnique({
+    where: {
+      teamName,
+    },
+  });
 
-    if(exist) {
-        throw new Error('Team already exists')
-    }
+  if (exist) {
+    throw new Error("Team already exists");
+  }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await db.user.create({
-        data: {
-            team,
-            email,
-            password,
-            hashedPassword,
-        }
-    });
+  const team = await db.team.create({
+    data: {
+      name: teamName,
+      bankroll: 1000,
+    },
+  });
 
-    return NextResponse.json(user)
+  const user = await db.user.create({
+    data: {
+      teamName,
+      email,
+      password,
+      hashedPassword,
+    },
+  });
+
+  return NextResponse.json(user);
 }

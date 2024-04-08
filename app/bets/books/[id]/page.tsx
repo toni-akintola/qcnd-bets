@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 
-export default async function Props({ params }: { params: { id: string } }) {
+export default async function Books({ params }: { params: { id: string } }) {
   const event = await db.events.findFirst({
     where: {
       id: params.id,

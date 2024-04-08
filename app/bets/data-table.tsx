@@ -66,7 +66,7 @@ export function DataTable<TData, TValue>({
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
-                <Link href={`/books/${row.getValue("id")}`}>
+                <Link href={`/bets/books/${row.getValue("id")}`}>
                   <Button className="bg-qcnd mt-2">Books</Button>
                 </Link>
               </TableRow>

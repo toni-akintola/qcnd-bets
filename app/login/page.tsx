@@ -1,35 +1,44 @@
 "use client";
 
 import Image from "next/image";
-import axios from "axios"
+import axios from "axios";
 import { useState } from "react";
-
+import { signIn } from "next-auth/react";
+import Link from "next/link";
 export default function Page() {
-    const [data, setData] = useState({
-        email: "",
-        team: "",
-        password: ""
-    })
+  const [data, setData] = useState({
+    email: "",
+    teamName: "",
+    password: "",
+  });
 
+  const loginUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    signIn("credentials", { ...data, redirect: false, callbackUrl: "/" }).then(
+      () => alert("User has been logged in!"),
+    );
+  };
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col items-center">
-          <Image
-            src="/QCND.svg"
-            alt="QCND Logo"
-            className="dark:invert"
-            width={100}
-            height={24}
-            priority
-          />
+          <Link href="/">
+            <Image
+              src="/QCND.svg"
+              alt="QCND Logo"
+              className="dark:invert"
+              width={100}
+              height={24}
+              priority
+            />
+          </Link>
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
           </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={loginUser}>
             <div>
               <label
                 htmlFor="email"
@@ -45,7 +54,7 @@ export default function Page() {
                   autoComplete="email"
                   required
                   value={data.email}
-                  onChange={e => setData({...data, email: e.target.value})}
+                  onChange={(e) => setData({ ...data, email: e.target.value })}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -59,12 +68,14 @@ export default function Page() {
               </label>
               <div className="mt-2">
                 <input
-                  id="team"
-                  name="team"
+                  id="teamName"
+                  name="teamName"
                   type="text"
                   autoComplete="team"
-                  value={data.team}
-                  onChange={e => setData({...data, team: e.target.value})}
+                  value={data.teamName}
+                  onChange={(e) =>
+                    setData({ ...data, teamName: e.target.value })
+                  }
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -85,10 +96,12 @@ export default function Page() {
                   id="password"
                   name="password"
                   type="password"
-                  autoComplete="current-password"
+                  autoComplete="password"
                   required
                   value={data.password}
-                  onChange={e => setData({...data, password: e.target.value})}
+                  onChange={(e) =>
+                    setData({ ...data, password: e.target.value })
+                  }
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
