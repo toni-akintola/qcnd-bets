@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 export default function Page() {
   const [data, setData] = useState({
     email: "",
@@ -12,11 +13,13 @@ export default function Page() {
     password: "",
   });
 
+  const router = useRouter();
   const loginUser = async (e: React.FormEvent) => {
     e.preventDefault();
     signIn("credentials", { ...data, redirect: false, callbackUrl: "/" }).then(
       () => alert("User has been logged in!"),
     );
+    router.push("/");
   };
   return (
     <>
