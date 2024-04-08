@@ -4,6 +4,7 @@ import Image from "next/image";
 import axios from "axios";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const [data, setData] = useState({
@@ -12,13 +13,17 @@ export default function Page() {
     password: "",
   });
 
+  const router = useRouter()
+
   const registerUser = async (e: React.FormEvent) => {
     e.preventDefault();
     axios
       .post("/api/register", data)
       .then(() => alert("User has been registered!"))
       .catch(() => alert("An error occured"));
+      router.push("/")
   };
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
