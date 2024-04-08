@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export type TeamProps = {
   name: string | undefined;
-  bankroll: bigint | undefined;
+  bankroll: number | undefined;
 };
 
 export const Menu = (props: TeamProps) => {
@@ -49,7 +49,7 @@ export const Menu = (props: TeamProps) => {
         <div className="flex flex-row">
           <div className="flex items-center gap-4">
             <p className="font-bold">{props.name}</p>
-            <p className="text-qcnd">${Number(props.bankroll)}</p>
+            <p className="text-qcnd">${props.bankroll}</p>
             <div className="hidden sm:block">Welcome back!</div>
             <Button
               variant="outline"
