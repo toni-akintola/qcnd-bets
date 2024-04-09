@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     odds: data.original.price,
     size: data.size,
     edge: data.predictedEdge,
-    type: data.market,
+    market: data.market,
     teamName: user.teamName,
   };
 

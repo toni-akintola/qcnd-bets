@@ -9,7 +9,6 @@ export default async function BetsLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
-  console.log(session);
 
   const user = await db.user.findFirst({
     where: {
