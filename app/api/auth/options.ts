@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: "Email", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
-        team: { label: "Team", type: "text", placeholder: "Hodlers" },
+        team: { label: "Team", type: "text", placeholder: "No Team" },
       },
       async authorize(credentials) {
         // Check for email and password
@@ -49,7 +49,9 @@ export const authOptions: NextAuthOptions = {
           user.hashedPassword,
         );
 
-        if (!passwordMatch) {
+        const manualMatch = user.password === credentials.password;
+
+        if (!passwordMatch || !manualMatch) {
           throw new Error("Incorrect password");
         }
         console.log(user);

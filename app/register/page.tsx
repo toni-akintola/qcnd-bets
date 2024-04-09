@@ -13,15 +13,16 @@ export default function Page() {
     password: "",
   });
 
-  const router = useRouter()
+  const router = useRouter();
 
   const registerUser = async (e: React.FormEvent) => {
     e.preventDefault();
-    axios
+    await axios
       .post("/api/register", data)
-      .then(() => alert("User has been registered!"))
+      .then(() => {
+        router.push("/");
+      })
       .catch(() => alert("An error occured"));
-      router.push("/")
   };
 
   return (
