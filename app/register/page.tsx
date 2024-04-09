@@ -17,7 +17,7 @@ export default function Page() {
 
   const registerUser = async (e: React.FormEvent) => {
     e.preventDefault();
-    await axios
+    const response = await axios
       .post("/api/register", data)
       .then(() => {
         router.push("/");

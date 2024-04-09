@@ -10,9 +10,16 @@ export default async function BetsLayout({
 }) {
   const session = await getServerSession(authOptions);
   console.log(session);
+
+  const user = await db.user.findFirst({
+    where: {
+      email: session?.user.email,
+    },
+  });
+
   const team = await db.team.findFirst({
     where: {
-      name: session?.user.team,
+      name: user?.teamName,
     },
   });
   return (
