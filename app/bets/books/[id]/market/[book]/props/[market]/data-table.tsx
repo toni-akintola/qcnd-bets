@@ -29,6 +29,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { getSession } from "next-auth/react";
+import { useParams } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -48,6 +49,7 @@ export function DataTable<TData, TValue>({
   const [betSize, setBetSize] = useState<number>(0);
   const [edge, setEdge] = useState<string>("0");
   const [openDialog, setOpenDialog] = useState(false);
+  const { market } = useParams();
 
   const submitBet = async (original: TData) => {
     const size = betSize;
@@ -61,7 +63,7 @@ export function DataTable<TData, TValue>({
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ original, size, predictedEdge, email }),
+        body: JSON.stringify({ original, size, predictedEdge, email, market }),
       },
     );
 

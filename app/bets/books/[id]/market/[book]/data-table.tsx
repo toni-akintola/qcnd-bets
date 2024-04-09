@@ -15,7 +15,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { getSession } from "next-auth/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
@@ -33,9 +46,7 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-
-  const { id } = useParams();
-  console.log();
+  const { id, book } = useParams();
 
   return (
     <div className="rounded-md border">
@@ -70,10 +81,8 @@ export function DataTable<TData, TValue>({
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
-                <Link
-                  href={`/bets/books/${id}/market/${row.getValue("title")}`}
-                >
-                  <Button className="bg-qcnd mt-2">Markets</Button>
+                <Link href={`./${book}/props/${row.getValue("key")}`}>
+                  <Button className="bg-qcnd mt-2">Props</Button>
                 </Link>
               </TableRow>
             ))

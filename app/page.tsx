@@ -4,6 +4,5 @@ import Home from "../src/components/Home";
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  console.log(JSON.stringify(session));
   return <Home email={session?.user.email} team={session?.user.team} />;
 }

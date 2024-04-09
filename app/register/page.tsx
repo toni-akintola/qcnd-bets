@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function Page() {
   const [data, setData] = useState({
@@ -19,10 +20,14 @@ export default function Page() {
     e.preventDefault();
     const response = await axios
       .post("/api/register", data)
-      .then(() => {
-        router.push("/");
-      })
       .catch(() => alert("An error occured"));
+
+    const signInResponse = await signIn("credentials", {
+      ...data,
+      redirect: false,
+      callbackUrl: "/",
+    });
+    router.push("/");
   };
 
   return (
@@ -127,10 +132,10 @@ export default function Page() {
           <p className="mt-10 text-center text-sm text-gray-500">
             Already have an account?{" "}
             <a
-              href="#"
+              href="/login"
               className="font-semibold leading-6 text-qcnd hover:text-green-600"
             >
-              Sign up here.
+              Sign in here.
             </a>
           </p>
         </div>

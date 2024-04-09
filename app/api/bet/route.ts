@@ -3,7 +3,6 @@ import { db } from "@/lib/db";
 
 export async function POST(request: NextRequest) {
   const data = await request.json();
-  console.log(data);
 
   const user = await db.user.findUnique({
     where: {
@@ -38,6 +37,7 @@ export async function POST(request: NextRequest) {
     odds: data.original.price,
     size: data.size,
     edge: data.predictedEdge,
+    type: data.market,
     teamName: user.teamName,
   };
 

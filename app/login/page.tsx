@@ -16,11 +16,15 @@ export default function Page() {
   const router = useRouter();
   const loginUser = async (e: React.FormEvent) => {
     e.preventDefault();
-    await signIn("credentials", {
+    const response = await signIn("credentials", {
       ...data,
       redirect: false,
       callbackUrl: "/",
-    }).then(() => router.push("/"));
+    });
+
+    if (response?.ok) {
+      router.push("/");
+    }
   };
   return (
     <>

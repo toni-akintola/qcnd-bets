@@ -39,7 +39,7 @@ export const Menu = (props: TeamProps) => {
               Events
             </Link>
             <Link
-              href="/bets/market"
+              href="/bets/active-bets"
               className="py-4 px-6 cursor-pointer hover:bg-slate-100 font-bold"
             >
               Active Bets
